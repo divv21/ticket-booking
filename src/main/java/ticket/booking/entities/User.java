@@ -40,7 +40,7 @@ public class User {
         return ticketsBooked;
     }
 
-    public void printTicket() {
+    public void printTickets() {
         for(int i=0; i<ticketsBooked.size(); i++) {
             System.out.println(ticketsBooked.get(i).getTicketInfo());
         }
