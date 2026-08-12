@@ -3,11 +3,13 @@ package ticket.booking.services;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import ticket.booking.entities.Ticket;
+import ticket.booking.entities.Train;
 import ticket.booking.entities.User;
 import ticket.booking.util.UserServiceUtil;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,7 +21,7 @@ public class UserBookingService {
 
     private ObjectMapper objectMapper = new ObjectMapper();
 
-    private static final String USERS_PATH = "app/src/main/java/ticket/booking/localDb/users.json";
+    private static final String USERS_PATH = "src/main/java/ticket/booking/localDb/users.json";
 
     public UserBookingService(User user1) throws IOException {
         this.user = user1;
@@ -61,7 +63,10 @@ public class UserBookingService {
     }
 
     public void fetchBookings() {
-        user.printTickets();
+        Optional<User> userFetched = userList.stream().filter(user1 -> {
+            return user1.getName().equals(user.getName()) && UserServiceUtil.checkPassword(user.getPassword(), user1.getHashedPassword());
+        }).findFirst();
+        userFetched.ifPresent(User::printTickets);
     }
 
     public Boolean cancelBooking(String ticketId) {
@@ -78,6 +83,15 @@ public class UserBookingService {
         }
         catch (IOException ex) {
             return Boolean.FALSE;
+        }
+    }
+
+    public List<Train> getTrains(String source, String dest) {
+        try {
+            TrainService trainService= new TrainService();
+            return trainService.searchTrains(source, dest);
+        } catch(IOException ex) {
+            return new ArrayList<>();
         }
     }
 }
