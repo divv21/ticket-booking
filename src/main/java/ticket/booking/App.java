@@ -33,6 +33,7 @@ public class App {
             System.out.println("6. Cancel my Booking");
             System.out.println("7. Exit the App");
             option = scanner.nextInt();
+            Train trainSelectedForBooking = new Train();
             switch (option){
                 case 1:
                     System.out.println("Enter the username to sign up");
@@ -81,7 +82,7 @@ public class App {
                         }
                     }
                     System.out.println("Select a train by typing 1,2,3...");
-                    Train trainSelectedForBooking = trains.get(scanner.nextInt());
+                    trainSelectedForBooking = trains.get(scanner.nextInt());
                     break;
 
                 case 5:
@@ -112,6 +113,8 @@ public class App {
                     userBookingService.cancelBooking(ticketId);
                 case 7:
                      break;
+                default:
+                    break;
             }
         }
 

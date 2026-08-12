@@ -23,6 +23,8 @@ public class Train {
         this.stations = stations;
     }
 
+    public Train(){}
+
     public List<String> getStations() {
         return stations;
     }
