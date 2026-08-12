@@ -6,12 +6,16 @@ import java.util.List;
 
 public class User {
 
+    @JsonProperty("name")
     private String name;
 
+    @JsonProperty("password")
     private String password;
 
+    @JsonProperty("hashed_password")
     private String hashedPassword;
 
+    @JsonProperty("tickets_booked")
     private List<Ticket> ticketsBooked;
 
     @JsonProperty("user_id")
